@@ -68,7 +68,9 @@ function Person(name, city, age) {
 // #3
 
 Person.prototype.greeting = function() {
-    return `Hey! My name is ${this.name}. I am ${this.age} years old and live in ${this.city}.`;
+    return `Hey! My name is ${this.name}. I am ${
+        this.age
+    } years old and live in ${this.city}.`;
 };
 
 // #4
@@ -77,7 +79,7 @@ let p1 = new Person('Kenneth', 'Birmingham', 48);
 let p2 = new Person('Caroline', 'Birmingham', 20);
 let p3 = new Person('Reid', 'Birmingham', 17);
 let p4 = new Person('Davis', 'Birmingham', 12);
-let p5 = new Person('Margaret', 'Birmingham', 46);
+let p5 = new Person('Margaret', 'Birmingham', 44);
 
 console.log(p1.greeting());
 console.log(p2.greeting());
@@ -92,10 +94,11 @@ class Persons {
         this.name = name;
         this.city = city;
         this.age = age;
-        
     }
     itsMe() {
-        return `Hey! My name is ${this.name}. I am ${this.age} years old and live in ${this.city}.`;
+        return `Hey! My name is ${this.name}. I am ${
+            this.age
+        } years old and live in ${this.city}.`;
     }
 }
 
@@ -118,91 +121,77 @@ class Vehicles {
     constructor(make, wheels) {
         this.make = make;
         this.wheels = wheels;
-       
     }
+
     aboutVehicle() {
-        console.log('********')
-       console.log(`My vehicle is a ${this.type}. It is made by ${this.make} and has ${this.wheels}`);
+        console.log(
+            `My vehicle is made by ${this.make} and has ${this.wheels}.`
+        );
+    }
+    vehicleType() {
+        return this.type ? 'pickup truck' : 'car';
     }
 }
 
 // #3
 
 class Trucks extends Vehicles {
-    constructor(make, wheels, doors, type) {
+    constructor(type, make, wheels, doors) {
         super(make, wheels);
-        
         this.doors = doors;
         this.type = type;
     }
-    aboutVehicle(type) {
-        
-        if (type == 'yes') {
-            return this.type = 'truck'
-        }
-
-        console.log(`My vehicle is a ${this.type}. It is made by ${this.make} and has ${this.wheels}`);
+    aboutVehicle() {
+        console.log(
+            `My vehicle is a ${this.vehicleType()}. It is made by ${
+                this.make
+            } and has ${this.wheels} doors.`
+        );
     }
 }
 
 //#4
 
 class Sedans extends Vehicles {
-    constructor(make, wheels, type, size, mpg) {
+    constructor(make, wheels, size, mpg) {
         super(make, wheels);
-        this.type = type;
         this.size = size;
         this.mpg = mpg;
     }
-
+    aboutVehicle() {
+        console.log(
+            `My vehicle is a ${this.vehicleType()}. It is made by ${
+                this.make
+            } and has ${this.wheels} doors.`
+        );
+    }
+    //  small size = true; medium size = false'
+    vehicleType() {
+        return this.size ? 'small size car' : 'medium size car';
+    }
 }
-
 class Motorcyles extends Vehicles {
-    constructor(make, wheels, type, steer, doors) {
-        super(tpye, make, wheels);
-        this.type = type;
-        this.steer = steer;
+    constructor(make, wheels, hasHandlebars, doors) {
+        super(make, wheels);
+        this.hasHandlebars = hasHandlebars;
         this.doors = doors;
+    }
+    aboutVehicle() {
+        console.log(
+            `My vehicle is a ${this.vehicleType()}. It is made by ${
+                this.make
+            } and has ${this.wheels} doors.`
+        );
+    }
+    //  hasHandlebars = true; no handlebars = false'
+    vehicleType() {
+        return this.hasHandlebars ? 'motorcycle' : 'car';
     }
 }
 
-// let vehicle1 = new Trucks('BMW', 4, 2, 'yes') 
-// vehicle1.aboutVehicle()
-
-
-// function car(bed, doors) {
-//     if (bed === 'yes') {
-//         type = 'truck';
-//     }
-//     console.log(`I have a ${type}. It has ${doors}`)
-// }
-
-// car('yes', 2)
-
-
-// class Trucks {
-//     constructor(make, wheels, doors, type) {
-        
-//        this.make = make;
-//         this.wheels = wheels;
-//         this.doors = doors;
-//         this.type = type;
-//     }
-//     aboutVehicle(type) {
-       
-//         if (type === true) {
-            
-//            return this.type = 'truck';
-           
-            
-//         }
-//         console.log(this.type)
-//         console.log(type)
-//         console.log('********')
-//         console.log(`My vehicle is a ${this.type}. It is made by ${this.make} and has ${this.wheels}`);
-//     }
-// }
-
-let vehicle1 = new Trucks('BMW', 4, 2, 'yes') 
-vehicle1.aboutVehicle()
-// vehicle1.aboutVehicle('BMW', 4, 2, 'yes')
+let vehicle1 = new Trucks(true, 'Ford', 4, 2);
+vehicle1.aboutVehicle();
+let vehicle2 = new Sedans('Toyota', 4, true, 25);
+vehicle2.aboutVehicle();
+let vehicle3 = new Motorcyles('BMW', 2, true, 'no');
+vehicle3.aboutVehicle();
